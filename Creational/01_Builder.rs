@@ -1,6 +1,6 @@
 // Inspiration taken from https://rust-unofficial.github.io/patterns/patterns/creational/builder.html
 
-// The idea of Bulder Pattern is to have a build helper (Builder) class 
+// The idea of Builder Pattern is to have a build helper (Builder) class 
 // which helps construct the actual class object whose constructor can be private
 
 // It is like saving parameters in Builder class and then using that to build one or more 
@@ -8,8 +8,8 @@
 // configurations for the same class and build multiple class objects.
 
 // It might seem like Decorator pattern, but unlike decorator, where properties can be added
-// after creation of the object. Here they need to be configured before construction of the actual
-// object. For more information, see https://dashitesh.medium.com/architecture-learnings-7-design-patterns-builder-vs-decorator-and-the-pizza-problem-50aac30f643d
+// after creation of the object. Here they need to be configured before construction of the actual object. 
+// For more information, see https://dashitesh.medium.com/architecture-learnings-7-design-patterns-builder-vs-decorator-and-the-pizza-problem-50aac30f643d
 
 // Use : Saves from creation of multiple constructor variants of the class
 
