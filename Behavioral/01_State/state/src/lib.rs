@@ -11,12 +11,6 @@ pub struct Post {
     pub post_state: Box<dyn PostState>
 }
 
-// leaving this blank as we don't want to print box object
-impl Debug for dyn PostState {
-    fn fmt(&self, _: &mut Formatter<'_>) -> Result<(), std::fmt::Error> { todo!() }
-}
-
-
 impl Post {
     // Initially contain blank content and be on the Draft state
     pub fn new() -> Self {
@@ -36,6 +30,12 @@ pub trait PostState {
     fn add_content(&self);
     fn review_content(&self);
 }
+
+// leaving this blank as we don't want to print box object
+impl Debug for dyn PostState {
+    fn fmt(&self, _: &mut Formatter<'_>) -> Result<(), std::fmt::Error> { todo!() }
+}
+
 
 #[derive(DynPartialEq, PartialEq)]
 pub struct Draft {
