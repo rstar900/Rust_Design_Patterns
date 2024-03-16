@@ -31,7 +31,10 @@ impl Post {
 
 #[dyn_partial_eq]
 pub trait PostState {
-    // TODO: Add state related functions
+    // State related functions
+    fn view_content(&self);
+    fn add_content(&self);
+    fn review_content(&self);
 }
 
 #[derive(DynPartialEq, PartialEq)]
@@ -39,9 +42,35 @@ pub struct Draft {
     // TODO: Add members
 }
 
+impl PostState for Draft {
+    // Implement state related functions
+    fn view_content(&self) {
+        
+    }
+    fn add_content(&self) {
+
+    }
+    fn review_content(&self) {
+
+    }
+}
+
 #[derive(DynPartialEq, PartialEq)]
 pub struct InReview {
    // TODO: Add members
+}
+
+impl PostState for InReview {
+    // TODO: Implement state related functions
+    fn view_content(&self) {
+        
+    }
+    fn add_content(&self) {
+
+    }
+    fn review_content(&self) {
+        
+    }    
 }
 
 #[derive(DynPartialEq, PartialEq)]
@@ -49,15 +78,15 @@ pub struct Published {
     // TODO: Add members
 }
 
-impl PostState for Draft {
-    // TODO: Implement state related functions
-}
-
-impl PostState for InReview {
-    // TODO: Implement state related functions
-}
-
-
 impl PostState for Published {
     // TODO: Implement state related functions
+    fn view_content(&self) {
+        
+    }
+    fn add_content(&self) {
+
+    }
+    fn review_content(&self) {
+        
+    }    
 }
