@@ -40,6 +40,7 @@ impl Debug for dyn PostState {
 #[derive(DynPartialEq, PartialEq)]
 pub struct Draft {
     // TODO: Add members
+    // Possibly add Option<Rc<Post>> for context
 }
 
 // Constructor for Draft state showing message to indicate that a new object is created
