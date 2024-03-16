@@ -16,7 +16,7 @@ impl Post {
     pub fn new() -> Self {
          Post {
              post_content: String::from(""),
-             post_state: Box::new(Draft{})
+             post_state: Box::new(Draft::new())
          }
      }
  
@@ -42,6 +42,14 @@ pub struct Draft {
     // TODO: Add members
 }
 
+// Constructor for Draft state showing message to indicate that a new object is created
+impl Draft {
+    fn new() -> Self {
+        println!("[Draft State:] Welcome!");
+        Draft {}
+    }
+}
+
 impl PostState for Draft {
     // Implement state related functions
     fn view_content(&self) {
@@ -60,6 +68,14 @@ pub struct InReview {
    // TODO: Add members
 }
 
+// Constructor for InReview state showing message to indicate that a new object is created
+impl InReview {
+    fn new() -> Self {
+        println!("[InReview State:] Welcome!");
+        InReview {}
+    }
+}
+
 impl PostState for InReview {
     // TODO: Implement state related functions
     fn view_content(&self) {
@@ -76,6 +92,14 @@ impl PostState for InReview {
 #[derive(DynPartialEq, PartialEq)]
 pub struct Published {
     // TODO: Add members
+}
+
+// Constructor for Published state showing message to indicate that a new object is created
+impl Published {
+    fn new() -> Self {
+        println!("[Published State:] Welcome!");
+        Published {}
+    }
 }
 
 impl PostState for Published {
