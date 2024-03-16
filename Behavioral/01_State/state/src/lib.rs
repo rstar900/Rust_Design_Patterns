@@ -22,15 +22,26 @@ impl Post {
 
      // TODO: implement change_state()
  
-     // TODO: Implement state related functions
+     // State related functions
+    fn view_content(&self) {
+        self.post_state.view_content();
+    }
+
+    fn add_content(&self, content: String) {
+        self.post_state.add_content(content);
+    }
+
+    fn review_content(&self, is_passing: bool) {
+        self.post_state.review_content(is_passing);
+    }
  }
 
 #[dyn_partial_eq]
 pub trait PostState {
     // State related functions
     fn view_content(&self);
-    fn add_content(&self);
-    fn review_content(&self);
+    fn add_content(&self, content: String);
+    fn review_content(&self, is_passing: bool);
 }
 
 // leaving this blank as we don't want to print box object
@@ -58,10 +69,12 @@ impl PostState for Draft {
     fn view_content(&self) {
         
     }
-    fn add_content(&self) {
+
+    fn add_content(&self, content: String) {
 
     }
-    fn review_content(&self) {
+
+    fn review_content(&self, is_passing: bool) {
 
     }
 }
@@ -86,11 +99,13 @@ impl PostState for InReview {
     fn view_content(&self) {
         
     }
-    fn add_content(&self) {
+
+    fn add_content(&self, content: String) {
 
     }
-    fn review_content(&self) {
-        
+
+    fn review_content(&self, is_passing: bool) {
+
     }    
 }
 
@@ -112,10 +127,11 @@ impl PostState for Published {
     fn view_content(&self) {
         
     }
-    fn add_content(&self) {
+    fn add_content(&self, content: String) {
 
     }
-    fn review_content(&self) {
-        
+
+    fn review_content(&self, is_passing: bool) {
+
     }    
 }
