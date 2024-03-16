@@ -1,5 +1,5 @@
 use core::fmt::Debug;
-use std::fmt::Formatter;
+use std::{fmt::Formatter, rc::Rc};
 use dyn_partial_eq::*; // to derive PartialEq on trait objects
 
 
@@ -56,15 +56,15 @@ impl Debug for dyn PostState {
 
 #[derive(DynPartialEq, PartialEq)]
 pub struct Draft {
-    // TODO: Add members
-    // Possibly add Option<Rc<Post>> for context
+    // Pointer to the parent Post object (called Context)
+    pub context: Option<Rc<Post>>
 }
 
 // Constructor for Draft state showing message to indicate that a new object is created
 impl Draft {
     fn new() -> Self {
         println!("[Draft State:] Welcome!");
-        Draft {}
+        Draft {context: None}
     }
 }
 
@@ -85,14 +85,15 @@ impl PostState for Draft {
 
 #[derive(DynPartialEq, PartialEq)]
 pub struct InReview {
-   // TODO: Add members
+   // Pointer to the parent Post object (called Context)
+   pub context: Option<Rc<Post>>
 }
 
 // Constructor for InReview state showing message to indicate that a new object is created
 impl InReview {
     fn new() -> Self {
         println!("[InReview State:] Welcome!");
-        InReview {}
+        InReview {context: None}
     }
 
     // TODO: implement set_context()
@@ -115,14 +116,15 @@ impl PostState for InReview {
 
 #[derive(DynPartialEq, PartialEq)]
 pub struct Published {
-    // TODO: Add members
+    // Pointer to the parent Post object (called Context)
+    pub context: Option<Rc<Post>>
 }
 
 // Constructor for Published state showing message to indicate that a new object is created
 impl Published {
     fn new() -> Self {
         println!("[Published State:] Welcome!");
-        Published {}
+        Published {context: None}
     }
 }
 
