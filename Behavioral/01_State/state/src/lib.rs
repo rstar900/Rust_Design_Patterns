@@ -19,6 +19,8 @@ impl Post {
              post_state: Box::new(Draft::new())
          }
      }
+
+     // TODO: implement change_state()
  
      // TODO: Implement state related functions
  }
@@ -75,6 +77,8 @@ impl InReview {
         println!("[InReview State:] Welcome!");
         InReview {}
     }
+
+    // TODO: implement set_context()
 }
 
 impl PostState for InReview {
