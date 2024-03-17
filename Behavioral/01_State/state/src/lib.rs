@@ -57,7 +57,7 @@ impl Debug for dyn PostState {
 #[derive(DynPartialEq, PartialEq)]
 pub struct Draft {
     // Pointer to the parent Post object (called Context)
-    pub context: Option<Rc<Post>>
+    pub context: Option<&'static mut Post>
 }
 
 // Constructor for Draft state showing message to indicate that a new object is created
@@ -86,7 +86,7 @@ impl PostState for Draft {
 #[derive(DynPartialEq, PartialEq)]
 pub struct InReview {
    // Pointer to the parent Post object (called Context)
-   pub context: Option<Rc<Post>>
+   pub context: Option<&'static mut Post>
 }
 
 // Constructor for InReview state showing message to indicate that a new object is created
@@ -117,7 +117,7 @@ impl PostState for InReview {
 #[derive(DynPartialEq, PartialEq)]
 pub struct Published {
     // Pointer to the parent Post object (called Context)
-    pub context: Option<Rc<Post>>
+    pub context: Option<&'static mut Post>
 }
 
 // Constructor for Published state showing message to indicate that a new object is created
