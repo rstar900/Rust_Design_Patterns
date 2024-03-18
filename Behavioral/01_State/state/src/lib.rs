@@ -55,23 +55,13 @@ impl Debug for dyn PostState {
 
 
 #[derive(DynPartialEq, PartialEq)]
-pub struct Draft {
-    // Pointer to the parent Post object (called Context) 
-    // This reference is an Option type as we want 
-    // to set it later on from the change_state() of Post object
-    pub context: Option<&'static mut Post>
-}
+pub struct Draft {}
 
 impl Draft {
     // Constructor with a message
     fn new() -> Self {
         println!("[Draft State:] Welcome!");
-        Draft {context: None}
-    }
-
-    // To be able to change the context inside this object from Post object
-    fn set_context(&mut self, context: &'static mut Post) {
-        self.context = Some(context);
+        Draft {}
     }
 }
 
@@ -91,23 +81,13 @@ impl PostState for Draft {
 }
 
 #[derive(DynPartialEq, PartialEq)]
-pub struct InReview {
-   // Pointer to the parent Post object (called Context) 
-    // This reference is an Option type as we want 
-    // to set it later on from the change_state() of Post object
-   pub context: Option<&'static mut Post>
-}
+pub struct InReview {}
 
 impl InReview {
     // Constructor with a message
     fn new() -> Self {
         println!("[InReview State:] Welcome!");
-        InReview {context: None}
-    }
-
-    // To be able to change the context inside this object from Post object
-    fn set_context(&mut self, context: &'static mut Post) {
-        self.context = Some(context);
+        InReview {}
     }
 }
 
@@ -127,23 +107,13 @@ impl PostState for InReview {
 }
 
 #[derive(DynPartialEq, PartialEq)]
-pub struct Published {
-    // Pointer to the parent Post object (called Context) 
-    // This reference is an Option type as we want 
-    // to set it later on from the change_state() of Post object
-    pub context: Option<&'static mut Post>
-}
+pub struct Published {}
 
 impl Published {
     // Constructor with a message
     fn new() -> Self {
         println!("[Published State:] Welcome!");
-        Published {context: None}
-    }
-
-    // To be able to change the context inside this object from Post object
-    fn set_context(&mut self, context: &'static mut Post) {
-        self.context = Some(context);
+        Published {}
     }
 }
 
