@@ -8,7 +8,7 @@ pub struct Post {
     // Contains the content of the post and 
     // the pointer to the Object implementing PostState trait allocated on heap
     pub post_content: String,
-    pub post_state: Box<dyn PostState>
+    pub post_state: Option<Box<dyn PostState>>
 }
 
 impl Post {
@@ -16,30 +16,45 @@ impl Post {
     pub fn new() -> Self {
          Post {
              post_content: String::from(""),
-             post_state: Box::new(Draft::new())
+             post_state: Some(Box::new(Draft::new()))
          }
      }
 
      // State related functions
-    fn view_content(&self) {
-        self.post_state.view_content();
+    fn view_content(&mut self) {
+        // Move the content of the Option (state in this case) into another variable 's'
+        // and make the post_state None, so that ownership of s is given to the function called
+        // and not the post_state which needs to be owned by self
+        if let Some(s) = self.post_state.take() {
+            self.post_state = Some(s.view_content(self));
+        }
     }
 
-    fn add_content(&self, content: String) {
-        self.post_state.add_content(content);
+    fn add_content(&mut self, content: String) {
+        // Move the content of the Option (state in this case) into another variable 's'
+        // and make the post_state None, so that ownership of s is given to the function called
+        // and not the post_state which needs to be owned by self
+        if let Some(s) = self.post_state.take() {
+            self.post_state = Some(s.add_content(self, content));
+        }
     }
 
-    fn review_content(&self, is_passing: bool) {
-        self.post_state.review_content(is_passing);
+    fn review_content(&mut self, is_passing: bool) {
+        // Move the content of the Option (state in this case) into another variable 's'
+        // and make the post_state None, so that ownership of s is given to the function called
+        // and not the post_state which needs to be owned by self
+        if let Some(s) = self.post_state.take() {
+            self.post_state = Some(s.review_content(is_passing));
+        }
     }
  }
 
 #[dyn_partial_eq]
 pub trait PostState {
     // State related functions
-    fn view_content(&self);
-    fn add_content(&self, content: String);
-    fn review_content(&self, is_passing: bool);
+    fn view_content(self: Box<Self>, context: &Post) -> Box<dyn PostState>;
+    fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState>;
+    fn review_content(self: Box<Self>, is_passing: bool) -> Box<dyn PostState>; // No need of context as this is not viewing or modifying content 
 }
 
 // leaving this blank as we don't want to print box object
@@ -61,16 +76,16 @@ impl Draft {
 
 impl PostState for Draft {
     // Implement state related functions
-    fn view_content(&self) {
-        
+    fn view_content(self: Box<Self>, context: &Post) -> Box<dyn PostState> {
+        self // TODO
     }
 
-    fn add_content(&self, content: String) {
-
+    fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState> {
+        self // TODO
     }
 
-    fn review_content(&self, is_passing: bool) {
-
+    fn review_content(self: Box<Self>, is_passing: bool) -> Box<dyn PostState> {
+        self //TODO
     }
 }
 
@@ -86,17 +101,17 @@ impl InReview {
 }
 
 impl PostState for InReview {
-    // TODO: Implement state related functions
-    fn view_content(&self) {
-        
+    // Implement state related functions
+    fn view_content(self: Box<Self>, context: &Post) -> Box<dyn PostState> {
+        self // TODO
     }
 
-    fn add_content(&self, content: String) {
-
+    fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState> {
+        self // TODO
     }
 
-    fn review_content(&self, is_passing: bool) {
-
+    fn review_content(self: Box<Self>, is_passing: bool) -> Box<dyn PostState> {
+        self //TODO
     }    
 }
 
@@ -112,15 +127,16 @@ impl Published {
 }
 
 impl PostState for Published {
-    // TODO: Implement state related functions
-    fn view_content(&self) {
-        
-    }
-    fn add_content(&self, content: String) {
-
+    // Implement state related functions
+    fn view_content(self: Box<Self>, context: &Post) -> Box<dyn PostState> {
+        self // TODO
     }
 
-    fn review_content(&self, is_passing: bool) {
+    fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState> {
+        self // TODO
+    }
 
+    fn review_content(self: Box<Self>, is_passing: bool) -> Box<dyn PostState> {
+        self //TODO
     }    
 }
