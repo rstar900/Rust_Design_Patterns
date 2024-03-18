@@ -20,8 +20,9 @@ impl Post {
          }
      }
 
-     // State related functions
-    fn view_content(&mut self) {
+    // State related functions
+
+    pub fn view_content(&mut self) {
         // Move the content of the Option (state in this case) into another variable 's'
         // and make the post_state None, so that ownership of s is given to the function called
         // and not the post_state which needs to be owned by self
@@ -30,7 +31,7 @@ impl Post {
         }
     }
 
-    fn add_content(&mut self, content: String) {
+    pub fn add_content(&mut self, content: String) {
         // Move the content of the Option (state in this case) into another variable 's'
         // and make the post_state None, so that ownership of s is given to the function called
         // and not the post_state which needs to be owned by self
@@ -39,7 +40,7 @@ impl Post {
         }
     }
 
-    fn review_content(&mut self, is_passing: bool) {
+    pub fn review_content(&mut self, is_passing: bool) {
         // Move the content of the Option (state in this case) into another variable 's'
         // and make the post_state None, so that ownership of s is given to the function called
         // and not the post_state which needs to be owned by self
@@ -77,15 +78,19 @@ impl Draft {
 impl PostState for Draft {
     // Implement state related functions
     fn view_content(self: Box<Self>, context: &Post) -> Box<dyn PostState> {
-        self // TODO
+        println!("[Draft State:] Cannot view post yet.");
+        self
     }
 
     fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState> {
-        self // TODO
+        println!("[Draft State:] Added content, changing to InReview state...");
+        context.post_content.push_str(content.as_str());
+        Box::new(InReview::new())
     }
 
     fn review_content(self: Box<Self>, is_passing: bool) -> Box<dyn PostState> {
-        self //TODO
+        println!("[Draft State:] Cannot review post yet.");
+        self
     }
 }
 
@@ -101,18 +106,31 @@ impl InReview {
 }
 
 impl PostState for InReview {
-    // Implement state related functions
+
+    // Implemention of state related functions
+
     fn view_content(self: Box<Self>, context: &Post) -> Box<dyn PostState> {
-        self // TODO
+        println!("[InReview State:] Cannot view post yet.");
+        self
     }
 
     fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState> {
-        self // TODO
+        println!("[InReview State:] Cannot edit post unless in Draft state.")
+        self
     }
 
     fn review_content(self: Box<Self>, is_passing: bool) -> Box<dyn PostState> {
-        self //TODO
-    }    
+        if is_passing 
+        {
+            println!("[InReview State:] Review successful, changing to Published state...");
+            Box::new(Published::new())
+        }
+        else
+        {
+            println!("[InReview State:] Review unsuccessful, changing back to draft state...");
+            Box::new(Draft::new())
+        }
+    }            
 }
 
 #[derive(DynPartialEq, PartialEq)]
@@ -127,16 +145,21 @@ impl Published {
 }
 
 impl PostState for Published {
-    // Implement state related functions
+
+    // Implementation of state related functions
+
     fn view_content(self: Box<Self>, context: &Post) -> Box<dyn PostState> {
-        self // TODO
+        println!("[Published State:] {}", context.post_content);
+        self
     }
 
     fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState> {
-        self // TODO
+        println!("[Published State:] Cannot edit post unless in Draft state.");
+        self
     }
 
     fn review_content(self: Box<Self>, is_passing: bool) -> Box<dyn PostState> {
-        self //TODO
+        println!("[Published State:] Cannot review post after publishing.");
+        self 
     }    
 }
