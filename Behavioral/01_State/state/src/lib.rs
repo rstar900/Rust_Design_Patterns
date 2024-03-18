@@ -20,12 +20,6 @@ impl Post {
          }
      }
 
-    // Function for changing the state of the Post
-    fn change_state(&mut self, state: Box<dyn PostState>) {
-        self.post_state = state;
-        // TODO: call the set_context() of the post_state object
-    } 
- 
      // State related functions
     fn view_content(&self) {
         self.post_state.view_content();
