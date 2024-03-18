@@ -115,7 +115,7 @@ impl PostState for InReview {
     }
 
     fn add_content(self: Box<Self>, context: &mut Post, content: String) -> Box<dyn PostState> {
-        println!("[InReview State:] Cannot edit post unless in Draft state.")
+        println!("[InReview State:] Cannot edit post unless in Draft state.");
         self
     }
 

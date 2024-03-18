@@ -15,5 +15,19 @@ fn post_test() {
   let mut content = String::from("Hello from published post");
   post.add_content(content);  
 
-  // TODO: More tests                    
+  post.review_content(false);
+  post.review_content(true);
+    
+  let content_addition = String::from("\nSome more additions");
+  post.add_content(content_addition);
+  post.view_content();
+
+  post.review_content(true);
+
+  let content_addition_again = String::from("\nSome more additions");
+  post.add_content(content_addition_again);
+  post.review_content(false);
+  post.view_content();
+
+  // TODO: Check and add more tests if necessary                    
 }
