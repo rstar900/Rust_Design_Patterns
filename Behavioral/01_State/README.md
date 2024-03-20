@@ -6,5 +6,6 @@ In short, it replaces the classical switch case and if statements for states wit
 ## Build and Run
 Execute the following commands:
 ```
-TODO
+cd state
+cargo test -- --nocapture
 ```
